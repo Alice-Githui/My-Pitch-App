@@ -8,6 +8,7 @@ This app provides a platform where one can submit their innovative ideas/pitches
 ## Technologies Used
 
 -Python V3.9 
+<br>
 -Flask framework
 
 ## Installation and Set-up
@@ -16,7 +17,7 @@ To acquire a local copy:
 
 - Clone the repository to your desired location
 - Open the app on your preferred editor to view the source code
-- Run the app by running ./slash.sh in your terminal to view the app on your browser
+- Run the app by running ./start.sh in your terminal to view the app on your browser
 
 
 ## License
