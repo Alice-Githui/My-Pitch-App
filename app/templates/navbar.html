@@ -1,3 +1,11 @@
 <nav class="navbar fixed-top navbar-dark bg-dark" style="background-color: black; margin:0px;">
     <a href="#" class="navbar-brand" style="color:white;">My Pitch App</a>
+    <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+        <li style="color:white; padding:15px;">{{current_user.username}}</li>
+        <li><a href="{{url_for('auth.logout')}}">Sign Out</a></li>
+        {% else %}
+        <li><a href="{{url_for('auth.login')}}">Sign In</a></li>
+        {% endif %}
+    </ul>
 </nav>

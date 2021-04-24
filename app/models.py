@@ -1,14 +1,17 @@
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
+from . import login_manager
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__='users'
 
     id=db.Column(db.Integer,primary_key=True)
-    username=db.Column(db.String(255))
+    username=db.Column(db.String(255), index=True)
     bio=db.Column(db.String())
-    email=db.Column(db.String())
+    email=db.Column(db.String(),unique=True,index=True)
     pitch=db.relationship('Pitch', backref='user', lazy="dynamic")
+    password_hash=db.Column(db.String(255))
     pass_secure=db.Column(db.String(255))
 
     @property
@@ -32,6 +35,10 @@ class Pitch(db.Model):
     title=db.Column(db.String(255))
     pitch=db.Column(db.String())
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
     def __repr__(self):
         return f'User{self.title}'
