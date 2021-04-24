@@ -10,6 +10,7 @@ class User(UserMixin,db.Model):
     username=db.Column(db.String(255), index=True)
     bio=db.Column(db.String())
     email=db.Column(db.String(),unique=True,index=True)
+    profile_pic_path=db.Column(db.String())
     pitch=db.relationship('Pitch', backref='user', lazy="dynamic")
     password_hash=db.Column(db.String(255))
     pass_secure=db.Column(db.String(255))
