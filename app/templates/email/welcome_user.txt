@@ -1,0 +1,3 @@
+Hello {{user.username}}
+Welcome to My Pitch App
+You have signed up for our application and want to welcome you to the family. Enjoy all the submitted pitches and feel free to interact with all other pitches
