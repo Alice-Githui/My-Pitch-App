@@ -16,6 +16,8 @@ class User(UserMixin,db.Model):
     pass_secure=db.Column(db.String(255))
     pitch=db.relationship('Pitch', backref='user', lazy="dynamic")
     comment=db.relationship('Comment', backref="user",lazy="dynamic")
+    upvote=db.relationship('Upvote', backref='user',lazy="dynamic")
+    downvote=db.relationship('Downvote',backref='user',lazy="dynamic")
 
     @property
     def password(self):
@@ -40,6 +42,8 @@ class Pitch(db.Model):
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
     category=db.Column(db.String())
     comment=db.relationship('Comment',backref='pitch',lazy='dynamic')
+    upvote=db.relationship('Upvote',backref="pitch",lazy="dynamic")
+    downvote=db.relationship('Downvote',backref='pitch', lazy='dynamic')
 
 class Category(db.Model):
     __tablename__ ='category'
@@ -49,8 +53,25 @@ class Category(db.Model):
 
 class Comment(db.Model):
     __tablename__='comment'
+    
     id=db.Column(db.Integer,primary_key=True)
     comment=db.Column(db.String())
+    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitch_id=db.Column(db.Integer,db.ForeignKey('pitch.id'))
+
+class Upvote(db.Model):
+    __tablename__='upvote'
+
+    id=db.Column(db.Integer,primary_key=True)
+    upvote=db.Column(db.Integer())
+    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitch_id=db.Column(db.Integer,db.ForeignKey('pitch.id'))
+
+class Downvote(db.Model):
+    __tablename__='downvote'
+
+    id=db.Column(db.Integer,primary_key=True)
+    upvote=db.Column(db.Integer())
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
     pitch_id=db.Column(db.Integer,db.ForeignKey('pitch.id'))
 
