@@ -1,8 +1,11 @@
+import os
+
 class Config:
     '''
     General configuration parent class
     '''
-    pass
+    SECRET_KEY=os.environ.get('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://githui:Kqcaptain#2@localhost/pitch'
 
 class ProdConfig(Config):
     '''
