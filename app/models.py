@@ -2,6 +2,7 @@ from . import db
 
 class User(db.Model):
     __tablename__='users'
+
     id=db.Column(db.Integer,primary_key=True)
     username=db.Column(db.String(255))
     bio=db.Column(db.String())
@@ -13,10 +14,11 @@ class User(db.Model):
 
 class Pitch(db.Model):
     __tablename__='pitch'
-    id=id.Column(db.Integer,primary_key=True)
+
+    id=db.Column(db.Integer,primary_key=True)
     title=db.Column(db.String(255))
     pitch=db.Column(db.String())
-    user_id=db.Column(db.Integer,db.ForeignKey(users.id))
+    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
 
     def __repr__(self):
         return f'User{self.title}'
