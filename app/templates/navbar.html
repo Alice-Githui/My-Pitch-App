@@ -1,5 +1,8 @@
 <nav class="navbar fixed-top navbar-dark bg-dark" style="background-color: black; margin:0px;">
-    <a href="#" class="navbar-brand" style="color:white;">My Pitch App</a>
+    <a href="/" class="navbar-brand" style="color:white;">My Pitch App</a>
+    <ul class="navbar-brand">
+        <li><a href="/pitch/new" style="color: white; list-style-type: none; margin-left: 100px;">New Pitch Entry</a></li>
+    </ul>
     <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
         <li><a href="{{url_for('main.profile',uname=current_user.username)}}" style="color:white; padding:15px;">Profile</a></li>

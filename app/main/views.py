@@ -1,8 +1,8 @@
 from flask import render_template, request,redirect, url_for,abort
 from .import main
-from flask_login import login_required
+from flask_login import login_required,current_user
 from ..models import Pitch, User
-from .forms import UpdateProfile, CommentForm
+from .forms import UpdateProfile,CommentForm,PitchForm
 from .. import db,photos
 
 #Views
@@ -15,21 +15,25 @@ def index():
 
     return render_template('index.html', title=title)
 
-@main.route('/pitch/review/new/<int:id>', methods=['GET','POST'])
+@main.route('/pitch/new/', methods=['GET','POST'])
 @login_required
-def new_comment(id):
-    form=CommentForm()
-    pitch=get_pitch(id)
+def new_pitch():
+    pitchform=PitchForm()
 
-    if form.validate_on_submit():
-        title=form.title.data
-        comment=form.review.data
-        new_comment=Comment(comment.id,title,description)
-        new_comment.save_comment()
-        return redirect(url_for('pitch', id=pitch.id))
+    if pitchform.validate_on_submit():
+        category=pitchform.category.data
+        title=pitchform.title.data
+        description=pitchform.description.data
+        user_id=current_user
 
-    title = f'{pitch.title} review'
-    return render_template('new_comment.html', title=title, comment_form=form, pitch=pitch)
+        new_pitch=Pitch(category=category, title=title, description=description,user_id=current_user._get_current_object().id)
+        
+        db.session.add(new_pitch)
+        db.session.commit()
+
+        return redirect(url_for('main.index'))
+
+    return render_template('pitches.html', pitchform=pitchform)
 
 @main.route('/user/<uname>')
 def profile(uname):

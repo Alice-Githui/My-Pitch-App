@@ -2,6 +2,7 @@ from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from . import login_manager
+from datetime import datetime  
 
 class User(UserMixin,db.Model):
     __tablename__='users'
@@ -11,9 +12,10 @@ class User(UserMixin,db.Model):
     bio=db.Column(db.String())
     email=db.Column(db.String(),unique=True,index=True)
     profile_pic_path=db.Column(db.String())
-    pitch=db.relationship('Pitch', backref='user', lazy="dynamic")
     password_hash=db.Column(db.String(255))
     pass_secure=db.Column(db.String(255))
+    pitch=db.relationship('Pitch', backref='user', lazy="dynamic")
+    comment=db.relationship('Comment', backref="user",lazy="dynamic")
 
     @property
     def password(self):
@@ -34,8 +36,23 @@ class Pitch(db.Model):
 
     id=db.Column(db.Integer,primary_key=True)
     title=db.Column(db.String(255))
-    pitch=db.Column(db.String())
+    description=db.Column(db.String())
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+    category=db.Column(db.String())
+    comment=db.relationship('Comment',backref='pitch',lazy='dynamic')
+
+class Category(db.Model):
+    __tablename__ ='category'
+
+    id=db.Column(db.Integer,primary_key=True)
+    category=db.Column(db.String())
+
+class Comment(db.Model):
+    __tablename__='comment'
+    id=db.Column(db.Integer,primary_key=True)
+    comment=db.Column(db.String())
+    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitch_id=db.Column(db.Integer,db.ForeignKey('pitch.id'))
 
 @login_manager.user_loader
 def load_user(user_id):
