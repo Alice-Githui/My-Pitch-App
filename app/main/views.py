@@ -172,3 +172,14 @@ def downvote(pitch_id):
     new_downvote=Downvote(pitch_id, user=current_user)
     new_downvote.save_downvotes()
     return redirect(url_for('main.index'))
+
+@main.route('/pitch/delete/<int:pitch_id>', methods=['GET','POST'])
+@login_required
+def delete_quote(pitch_id):
+    pitch=Pitch.query.filter_by(id = pitch_id).first()
+
+    db.session.delete(pitch)
+    db.session.commit()
+
+    # pitch.remove('pitch_id')
+    return redirect(url_for('main.pitch_categories'))
