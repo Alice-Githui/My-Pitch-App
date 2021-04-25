@@ -1,6 +1,14 @@
 {% macro displayCategory(category_list) %}
-
+<div class="row">
     {% for category in category_list %}
-        <li>{{category.title}}</li>
+        <div>
+            <h5>{{category.title}}</h6>
+            <p>{{category.description}}</p>
+        </div>
+        <div>
+            <small>Posted By {{category.user.username}}</small>
+        </div>
+        
     {% endfor %}
+</div>
 {% endmacro %}
