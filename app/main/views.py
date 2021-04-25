@@ -52,37 +52,37 @@ def pitch_categories():
 def pickuplines():
     pitch=Pitch.query.filter_by().first()
     pickuplines=Pitch.query.filter_by(category="pickuppitch")
-    return render_template('pickup.html', pitch=pitch,pickuplines=pickuplines)
+    return render_template('allpitches.html', pitch=pitch,pickuplines=pickuplines)
 
 @main.route('/technology', methods=['GET','POST'])
 def technology():
     pitch=Pitch.query.filter_by().first()
     technology=Pitch.query.filter_by(category="technology")
-    return render_template('pickup.html', pitch=pitch, technology=technology)
+    return render_template('tech.html', pitch=pitch, technology=technology)
 
 @main.route('/business',methods=['GET', 'POST'])
 def business():
     pitch=Pitch.query.filter_by().first()
     business=Pitch.query.filter_by(category="business")
-    return render_template('pickup.html', pitch=pitch,business=business)
+    return render_template('business.html', pitch=pitch,business=business)
 
 @main.route('/legal',methods=['GET', 'POST'])
 def legal():
     pitch=Pitch.query.filter_by().first()
     legal=Pitch.query.filter_by(category="legal;")
-    return render_template('pickup.html', pitch=pitch,legal=legal)
+    return render_template('legal.html', pitch=pitch,legal=legal)
 
 @main.route('/inspirational',methods=['GET', 'POST'])
 def inspirational():
     pitch=Pitch.query.filter_by().first()
     inspirational=Pitch.query.filter_by(category="inspirational")
-    return render_template('pickup.html', pitch=pitch,inspirational=inspirational)
+    return render_template('inspirational.html', pitch=pitch,inspirational=inspirational)
 
 @main.route('/other', methods=['GET', 'POST'])
 def other():
     pitch=Pitch.query.filter_by().first()
     other=Pitch.query.filter_by(category="other")
-    return render_template('pickup.html',pitch=pitch,other=other)
+    return render_template('other.html',pitch=pitch,other=other)
 
 
 @main.route('/user/<uname>')
