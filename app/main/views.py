@@ -31,7 +31,7 @@ def new_pitch():
         db.session.add(new_pitch)
         db.session.commit()
 
-        return redirect(url_for('main.new_pitch'))
+        return redirect(url_for('main.pitch_categories'))
 
     return render_template('pitches.html', pitchform=pitchform)
 
@@ -181,5 +181,4 @@ def delete_quote(pitch_id):
     db.session.delete(pitch)
     db.session.commit()
 
-    # pitch.remove('pitch_id')
     return redirect(url_for('main.pitch_categories'))

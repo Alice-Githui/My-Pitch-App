@@ -5,7 +5,7 @@ class Config:
     General configuration parent class
     '''
     SECRET_KEY=os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://githui:Kqcaptain#2@localhost/pitch'
+    # SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://githui:Kqcaptain#2@localhost/pitch'
     UPLOADED_PHOTOS_DEST='app/static/photos'
 
     #email configurations
@@ -24,6 +24,9 @@ class ProdConfig(Config):
     '''
     pass
 
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://githui:Kqcaptain#2@localhost/pitch_test'
+
 class DevConfig(Config):
     '''
     Production configuration child class
@@ -32,9 +35,11 @@ class DevConfig(Config):
     Config: The parebt configuration with General configuration settings
     '''
 
+    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://githui:Kqcaptain#2@localhost/pitch'
     DEBUG = True
 
 config_options={
     'development': DevConfig,
-    'production': ProdConfig
+    'production': ProdConfig,
+    'test':TestConfig
 }
