@@ -1,7 +1,7 @@
 from flask import render_template, request,redirect, url_for,abort
 from .import main
 from flask_login import login_required,current_user
-from ..models import Pitch, User
+from ..models import Pitch, User,Category,Comment
 from .forms import UpdateProfile,CommentForm,PitchForm
 from .. import db,photos
 
@@ -112,6 +112,27 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form=form)
+
+@main.route('/pitch/comment/<int:pitch_id>', methods=['GET','POST'])
+@login_required
+def comment(pitch_id):
+    commentForm=CommentForm()
+    pitch=Pitch.query.get(pitch_id)
+
+    if commentForm.validate_on_submit():
+        comment=commentForm.comment.data
+        user_id=current_user
+        
+
+        new_comment=Comment(comment=comment, user_id=current_user._get_current_object().id)
+
+        db.session.add(new_comment)
+        db.session.commit()
+
+        return redirect(url_for('.comment',pitch_id=pitch_id))
+
+    all_comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+    return render_template('comments.html',commentForm=commentForm,pitch=pitch)
 
 @main.route('/user/<uname>/update/pic', methods=['POST'])
 @login_required

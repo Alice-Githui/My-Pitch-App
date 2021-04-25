@@ -38,6 +38,13 @@
             
         </div>
         <div class="col-md-7">
+            <div>
+                {% if user.pitch %}
+                <a>View All Pitches </a>
+                {% else %}
+                <p>No pitches have been submitted by this user</p>
+                {% endif %}
+            </div>
            
 
         </div>
