@@ -1,7 +1,7 @@
 from flask import render_template, request,redirect, url_for,abort
 from .import main
 from flask_login import login_required,current_user
-from ..models import Pitch, User,Category,Comment
+from ..models import Pitch, User,Category,Comment, Upvote, Downvote
 from .forms import UpdateProfile,CommentForm,PitchForm
 from .. import db,photos
 
@@ -124,6 +124,7 @@ def comment(pitch_id):
         user_id=current_user
         
         new_comment=Comment(comment=comment, user_id=current_user._get_current_object().id)
+        new_comment.save_comment()
 
         db.session.add(new_comment)
         db.session.commit()
@@ -143,3 +144,31 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile', uname=uname))
+
+@main.route('/pitch/upvote/<int:pitch_id>')
+@login_required
+def upvote(pitch_id):
+    pitch=Pitch.query.get(pitch_id)
+    user_id=current_user
+    upvotes=Upvote.query.filter_by(pitch_id=pitch_id)
+
+    if Upvote.query.filter(Upvote.user_id == user_id, Upvote.pitch_id == pitch_id).first():
+        return redirect(url_for('main.index'))
+
+    new_upvote=Upvote(pitch_id=pitch_id, user=current_user)
+    new_upvote.save_upvotes()
+    return redirect(url_for('main.index'))
+
+@main.route('/pitch/downvote/<int:pitch_id>')
+@login_required
+def downvote(pitch_id):
+    pitch=Pitch.query.get(pitch_id)
+    user=current_user
+    downvotes=Downvote.query.filter_by(pitch_id=pitch_id)
+
+    if Downvote.query.filter(Downvote.user_id == user_id, Downvote.pitch_id == pitch_id).first():
+        return redirect(url_for('main.index'))
+
+    new_downvote=Downvote(pitch_id, user=current_user)
+    new_downvote.save_downvotes()
+    return redirect(url_for('main.index'))

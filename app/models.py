@@ -55,10 +55,24 @@ class Category(db.Model):
 class Comment(db.Model):
     __tablename__='comment'
 
+    all_comments=[]
+
     id=db.Column(db.Integer,primary_key=True)
     comment=db.Column(db.String())
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
     pitch_id=db.Column(db.Integer,db.ForeignKey('pitch.id'))
+
+    @classmethod
+    def get_comments(cls,id):
+        
+        response=[]
+
+        for comment in cls.all_comments:
+            if comment.pitch_id == id:
+                response.append(comment)
+
+        return response
+
 
 class Upvote(db.Model):
     __tablename__='upvote'
@@ -68,6 +82,10 @@ class Upvote(db.Model):
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
     pitch_id=db.Column(db.Integer,db.ForeignKey('pitch.id'))
 
+    def save_upvotes(self):
+        db.session.add(self)
+        db.session.commit()
+
 class Downvote(db.Model):
     __tablename__='downvote'
 
@@ -75,6 +93,10 @@ class Downvote(db.Model):
     upvote=db.Column(db.Integer())
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
     pitch_id=db.Column(db.Integer,db.ForeignKey('pitch.id'))
+
+    def save_downvotes(self):
+        db.session.add(self)
+        db.session.commit()
 
 @login_manager.user_loader
 def load_user(user_id):

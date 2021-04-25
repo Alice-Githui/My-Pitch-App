@@ -2,7 +2,7 @@
 <div class="row">
     {% for category in category_list %}
         <div class="col-md-6">
-            <div class="card" style="background-color: palegoldenrod;">
+            <div class="card" style="background-color: goldenrod; padding:10px; margin-top:22px;">
                 <div>
                     <h5>{{category.title}}</h6>
                     <p>{{category.description}}</p>
@@ -11,6 +11,8 @@
                     <small>Posted By {{category.user.username}}</small>
                 </div>
                 <div><a href="{{url_for('main.comment',pitch_id=category.id)}}">Add a Comment</a></div>
+                <div><small><a>Thumbs Up</a></small>
+                <small><a>Thumbs Down</a></small></div>
     
             </div>
 
