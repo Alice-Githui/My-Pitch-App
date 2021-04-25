@@ -31,7 +31,7 @@ def new_pitch():
         db.session.add(new_pitch)
         db.session.commit()
 
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.new_pitch'))
 
     return render_template('pitches.html', pitchform=pitchform)
 
@@ -39,20 +39,20 @@ def new_pitch():
 @login_required
 def pitch_categories():
     pitch=Pitch.query.filter_by().first()
-    pickuplines=Pitch.query.filter_by(category="pickuppitch")
+    pickuppitch=Pitch.query.filter_by(category="pickuppitch")
     technology=Pitch.query.filter_by(category="technology")
     business=Pitch.query.filter_by(category="business")
     legal=Pitch.query.filter_by(category="legal")
     inspirational=Pitch.query.filter_by(category="inspirational")
-    other=Pitch.query.filter_by(category="other")
+    others=Pitch.query.filter_by(category="others")
 
-    return render_template('allpitches.html', pitch=pitch,pickuplines=pickuplines,technology=technology,business=business,legal=legal,inspirational=inspirational,other=other)
+    return render_template('allpitches.html', pitch=pitch,pickuppitch=pickuppitch,technology=technology,business=business,legal=legal,inspirational=inspirational,others=others)
 
 @main.route('/pickuplines', methods=['GET', 'POST'])
 def pickuplines():
     pitch=Pitch.query.filter_by().first()
-    pickuplines=Pitch.query.filter_by(category="pickuppitch")
-    return render_template('allpitches.html', pitch=pitch,pickuplines=pickuplines)
+    pickuppitch=Pitch.query.filter_by(category="pickuppitch")
+    return render_template('allpitches.html', pitch=pitch,pickuppitch=pickuppitch)
 
 @main.route('/technology', methods=['GET','POST'])
 def technology():
@@ -69,7 +69,7 @@ def business():
 @main.route('/legal',methods=['GET', 'POST'])
 def legal():
     pitch=Pitch.query.filter_by().first()
-    legal=Pitch.query.filter_by(category="legal;")
+    legal=Pitch.query.filter_by(category="legal")
     return render_template('legal.html', pitch=pitch,legal=legal)
 
 @main.route('/inspirational',methods=['GET', 'POST'])
@@ -81,8 +81,8 @@ def inspirational():
 @main.route('/other', methods=['GET', 'POST'])
 def other():
     pitch=Pitch.query.filter_by().first()
-    other=Pitch.query.filter_by(category="other")
-    return render_template('other.html',pitch=pitch,other=other)
+    others=Pitch.query.filter_by(category="others")
+    return render_template('other.html',pitch=pitch,others=others)
 
 
 @main.route('/user/<uname>')
@@ -123,7 +123,6 @@ def comment(pitch_id):
         comment=commentForm.comment.data
         user_id=current_user
         
-
         new_comment=Comment(comment=comment, user_id=current_user._get_current_object().id)
 
         db.session.add(new_comment)
