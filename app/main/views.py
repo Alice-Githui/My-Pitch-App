@@ -35,6 +35,56 @@ def new_pitch():
 
     return render_template('pitches.html', pitchform=pitchform)
 
+@main.route('/pitch/categories', methods=['GET','POST'])
+@login_required
+def pitch_categories():
+    pitch=Pitch.query.filter_by().first()
+    pickuplines=Pitch.query.filter_by(category="pickuppitch")
+    technology=Pitch.query.filter_by(category="technology")
+    business=Pitch.query.filter_by(category="business")
+    legal=Pitch.query.filter_by(category="legal")
+    inspirational=Pitch.query.filter_by(category="inspirational")
+    other=Pitch.query.filter_by(category="other")
+
+    return render_template('allpitches.html', pitch=pitch,pickuplines=pickuplines,technology=technology,business=business,legal=legal,inspirational=inspirational,other=other)
+
+@main.route('/pickuplines', methods=['GET', 'POST'])
+def pickuplines():
+    pitch=Pitch.query.filter_by().first()
+    pickuplines=Pitch.query.filter_by(category="pickuppitch")
+    return render_template('pickup.html', pitch=pitch,pickuplines=pickuplines)
+
+@main.route('/technology', methods=['GET','POST'])
+def technology():
+    pitch=Pitch.query.filter_by().first()
+    technology=Pitch.query.filter_by(category="technology")
+    return render_template('pickup.html', pitch=pitch, technology=technology)
+
+@main.route('/business',methods=['GET', 'POST'])
+def business():
+    pitch=Pitch.query.filter_by().first()
+    business=Pitch.query.filter_by(category="business")
+    return render_template('pickup.html', pitch=pitch,business=business)
+
+@main.route('/legal',methods=['GET', 'POST'])
+def legal():
+    pitch=Pitch.query.filter_by().first()
+    legal=Pitch.query.filter_by(category="legal;")
+    return render_template('pickup.html', pitch=pitch,legal=legal)
+
+@main.route('/inspirational',methods=['GET', 'POST'])
+def inspirational():
+    pitch=Pitch.query.filter_by().first()
+    inspirational=Pitch.query.filter_by(category="inspirational")
+    return render_template('pickup.html', pitch=pitch,inspirational=inspirational)
+
+@main.route('/other', methods=['GET', 'POST'])
+def other():
+    pitch=Pitch.query.filter_by().first()
+    other=Pitch.query.filter_by(category="other")
+    return render_template('pickup.html',pitch=pitch,other=other)
+
+
 @main.route('/user/<uname>')
 def profile(uname):
     user=User.query.filter_by(username=uname).first()

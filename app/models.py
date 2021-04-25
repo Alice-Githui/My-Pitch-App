@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from . import login_manager
 from datetime import datetime  
 
+
 class User(UserMixin,db.Model):
     __tablename__='users'
 
@@ -53,7 +54,7 @@ class Category(db.Model):
 
 class Comment(db.Model):
     __tablename__='comment'
-    
+
     id=db.Column(db.Integer,primary_key=True)
     comment=db.Column(db.String())
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))

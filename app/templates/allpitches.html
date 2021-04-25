@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% import 'macros.html' as macro %}
+
+{% block content %}
+<!-- PickUpLines -->
+<div>
+    <h4><a href="/pickuplines">Pick Up Lines</a></h4>
+    <ul>
+        {{macro.displayCategory(pickuppitch)}}
+    </ul>
+</div>
+<div>
+    <h4><a href="/technology">Technology Pitches</a></h4>
+    <ul>
+        {{macro.displayCategory(technology)}}
+    </ul>
+</div>
+<div>
+    <h4><a href="/business">Business Pitches</a></h4>
+    <ul>
+        {{macro.displayCategory(business)}}
+    </ul>
+</div>
+<div>
+    <h4><a href="/legal">Legal Pitches</a></h4>
+    <ul>
+        {{macro.displayCategory(legal)}}
+    </ul>
+</div>
+<div>
+    <h4><a href="/inspirational">Personal Development Pitches</a></h4>
+    <ul>
+        {{macro.displayCategory(inspirational)}}
+    </ul>
+</div>
+<div>
+    <h4><a href="/other">Other Categories</a></h4>
+    <ul>
+        {{macro.displayCategory(other)}}
+    </ul>
+</div>
+
+{% endblock %}
