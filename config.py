@@ -6,6 +6,7 @@ class Config:
     '''
     SECRET_KEY=os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://githui:Kqcaptain#2@localhost/pitch'
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
     UPLOADED_PHOTOS_DEST='app/static/photos'
 
     #email configurations
@@ -35,7 +36,7 @@ class DevConfig(Config):
     Config: The parebt configuration with General configuration settings
     '''
 
-    SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://githui:Kqcaptain#2@localhost/pitch'
+    # SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://githui:Kqcaptain#2@localhost/pitch'
     DEBUG = True
 
 config_options={
