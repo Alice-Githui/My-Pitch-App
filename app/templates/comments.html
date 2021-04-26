@@ -3,9 +3,16 @@
 
 {% block content %}
 <div class="container">
-    {{wtf.quick_form(commentForm)}}
+    <div class="row">
+        <div class="col-md-6">
+            {{wtf.quick_form(commentForm)}}
+        </div>
+        <div class="col-md-6">
+            {{macro.displayComments(comment)}}
 
+        </div>
+
+    </div>
 </div>
-
 
 {% endblock %}
