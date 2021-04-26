@@ -13,21 +13,12 @@
                 <div><a href="{{url_for('main.comment',pitch_id=category.id)}}">Add a Comment</a></div>
                 <div><small><a>Thumbs Up</a></small>
                 <small><a>Thumbs Down</a></small></div>
-                <p>{{pitch.comment.comment}}</p>
                 <div style="text-align: right;"><a href="{{url_for('main.delete_quote', pitch_id=category.id)}}"><small>Delete Quote</small></a></div>
     
             </div>
 
         </div>     
         
-    {% endfor %}
-</div>
-{% endmacro %}
-
-{% macro displayComments(comments) %}
-<div class="container">
-    {% for comment in comments %}
-        <p>{{comment.comment}}</p>
     {% endfor %}
 </div>
 {% endmacro %}

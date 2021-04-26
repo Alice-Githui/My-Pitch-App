@@ -26,15 +26,15 @@ def new_pitch():
         description=pitchform.description.data
         user_id=current_user
 
-        # new_pitch=Pitch(category=category, title=title, description=description,user_id=current_user._get_current_object().id)
-        new_pitch=Pitch(pitch_id=1234,pitch_title="Good Grades", pitch_description="Predict Student's grades", pitch_user_id=7, pitch_category="Business", pitch_comment='Great', pitch_upvote=0,pitch_downvote=0)
+        new_pitch=Pitch(category=category, title=title, description=description,user_id=current_user._get_current_object().id)
+        # new_pitch=Pitch(pitch_id=1234,pitch_title="Good Grades", pitch_description="Predict Student's grades", pitch_user_id=7, pitch_category="Business", pitch_comment='Great', pitch_upvote=0,pitch_downvote=0)
         
         db.session.add(new_pitch)
         db.session.commit()
 
         return redirect(url_for('main.pitch_categories'))
 
-    return render_template('pitches.html', pitchform=pitchform, category=category,title=title,description=description, user_id=current_user._get_current_object().id)
+    return render_template('pitches.html', pitchform=pitchform)
 
 @main.route('/pitch/categories', methods=['GET','POST'])
 @login_required
@@ -126,6 +126,9 @@ def comment(pitch_id):
         
         new_comment=Comment(comment=comment, user_id=current_user._get_current_object().id)
         new_comment.save_comment()
+
+        db.session.add(self)
+        db.session.commit()
 
         return redirect(url_for('.comment',pitch_id=pitch_id, comment=comment))
 
