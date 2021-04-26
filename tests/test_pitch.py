@@ -11,20 +11,20 @@ class PitchTest(unittest.TestCase):
         '''
         set up method that runs every time our app is instantiated
         '''
-        self.new_pitch=Pitch(1234, 'Good Grades', 'Predict student grades', 12, 'Creative', 'Great Concept', 0, 0)
+        self.new_pitch=Pitch(pitch_id=1234,pitch_title='Good Grades', pitch_description='Predict student grades', pitch_user_id=12, pitch_category='Creative', pitch_comment='Great Concept', pitch_upvote=0, pitch_downvote=0)
 
     def tearDown(self):
         Pitch.query.delete()
                
 
     def test_instance(self):
-        self.assertTrue(isinstance(self.new_pitch, Pitch))
+        self.assertTrue(isinstance(self.new_pitch,Pitch))
 
     def test_check_instance_variables(self):
         self.assertEquals(self.new_pitch.pitch_id, 1234)
         self.assertEquals(self.new_pitch.pitch_title, 'Good Grades')
         self.assertEquals(self.new_pitch.pitch_description,'Predict student grades')
-        self.assertEquals(self.new.pitch.user_id, 123)
+        self.assertEquals(self.new.pitch.pitch_user_id, 123)
         self.assertEquals(self.new_pitch.pitch_category,'Business')
         self.assertEquals(self.new_pitch.pitch_comment,'Great')
         self.assertEquals(self.new_pitch.pitch_upvote, 0)
