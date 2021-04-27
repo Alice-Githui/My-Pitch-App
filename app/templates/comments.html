@@ -8,10 +8,15 @@
             {{wtf.quick_form(commentForm)}}
         </div>
         <div class="col-md-6">
-            {{macro.displayComments(comment)}}
-
+            {% for comment in comments %}
+            <div>
+                <div>
+                 <!-- <h5>{{comment.pitch.title}}</h5> -->
+                  <p>{{ comment.comment }}</p>
+                </div>
+            </div>
+         {% endfor %}
         </div>
-
     </div>
 </div>
 

@@ -123,17 +123,16 @@ def comment(pitch_id):
     if commentForm.validate_on_submit():
         comment=commentForm.comment.data
         user_id=current_user
-        
+
         new_comment=Comment(comment=comment, user_id=current_user._get_current_object().id)
         new_comment.save_comment()
 
-        db.session.add(self)
+        db.session.add(new_comment)
         db.session.commit()
 
         return redirect(url_for('.comment',pitch_id=pitch_id, comment=comment))
-
-    all_comments = Comment.query.filter_by(pitch_id=pitch_id).all()
-    return render_template('comments.html',commentForm=commentForm,pitch=pitch,comment=all_comments)
+    all_comments=Comment.query.filter_by(pitch_id=pitch_id).all()    
+    return render_template('comments.html',commentForm=commentForm,pitch=pitch,comments=all_comments)
 
 @main.route('/user/<uname>/update/pic', methods=['POST'])
 @login_required
